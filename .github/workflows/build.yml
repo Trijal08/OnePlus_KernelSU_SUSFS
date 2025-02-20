@@ -80,11 +80,11 @@ jobs:
           
           # Initialize and sync kernel source
           echo "Initializing and syncing kernel source..."
-          repo init -u https://github.com/OnePlusOSS/kernel_manifest.git -b ${{ inputs.branch }} -m ${{ inputs.manifest }} --repo-rev=v2.16 --depth=1
+          repo init --no-repo-verify --git-lfs --depth=1 -u https://github.com/Trijal08/anaconda_kernel_oneplus_sm8650_manifest.git -b anaconda-pineapple-waffle
           
           # Sync repo and apply patches
           repo --version
-          repo --trace sync -c -j$(nproc --all) --no-tags --fail-fast
+          repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
       
       - name: Add KernelSU
         run: |
