@@ -85,7 +85,12 @@ jobs:
           # Sync repo and apply patches
           repo --version
           repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
-      
+
+          # Download any submodules if available
+          cd ./kernel_platform/common/
+          git submodule init; git submodule update
+          cd ../..
+
       - name: Add KernelSU
         run: |
           echo "Changing to configuration directory: $CONFIG..."
